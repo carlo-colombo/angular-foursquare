@@ -1,0 +1,14 @@
+{
+  "name": "angular-foursquare",
+  "version": "0.0.1",
+  "main": "foursquare.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": "~1.x",
+    "angular-geolocation":"*"
+  }
+}
