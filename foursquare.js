@@ -10,7 +10,7 @@ angular.module('ngFoursquare',["ngResource"])
     })
     .provider('Foursquare',function (encodeParam) {
       var FoursquareProvider = {
-        '$get': function ($resource,$q,BASE_API_URL,geolocation) {
+        '$get': function ($resource,$q,BASE_API_URL) {
             var params = {
                     oauth_token: FoursquareProvider.token
                     ,v: '20130425'
