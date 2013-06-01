@@ -1,11 +1,14 @@
-angular.module('ngFoursquare',["ngResource","ngGeolocation"])
+angular.module('ngFoursquare',["ngResource"])
     .constant('BASE_API_URL','https://api.foursquare.com/v2')
     .config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"]
-        delete $httpProvider.defaults.headers.common["Access-Control-Request-Headers"]
-        delete $httpProvider.defaults.headers.common["Access-Control-Request-Method"]
     }])
-    .provider('Foursquare',function () {
+    .constant('encodeParam',function (data) {
+        return data && Object.keys(data).map(function (k) {
+            return encodeURI(k)+'='+encodeURI(data[k])
+        }).join('&')
+    })
+    .provider('Foursquare',function (encodeParam) {
       var FoursquareProvider = {
         '$get': function ($resource,$q,BASE_API_URL,geolocation) {
             var params = {
@@ -31,16 +34,19 @@ angular.module('ngFoursquare',["ngResource","ngGeolocation"])
                     {CHECKIN_ID:'@checkinId'},{
                     add: {
                         method: 'POST',
-                        params: angular.extend({ action:'add'},params)
+                        params: angular.extend({action:'add'},params),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        transformRequest: encodeParam
                     },
                     get: {
                         method: 'GET',
                         params: params
                     }
                 })
-                ,search:function () {
-                    return geolocation.position()
-                        .then(function (pos) {
+                ,search:function (position) {
+                    return position.then(function (pos) {
                             var c = pos.coords,
                                 ll = "" + c.latitude + "," + c.longitude
                             return ll
