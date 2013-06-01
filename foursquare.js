@@ -46,7 +46,7 @@ angular.module('ngFoursquare',["ngResource"])
                     }
                 })
                 ,search:function (position) {
-                    return position.then(function (pos) {
+                    return $q.when(position).then(function (pos) {
                             var c = pos.coords,
                                 ll = "" + c.latitude + "," + c.longitude
                             return ll
