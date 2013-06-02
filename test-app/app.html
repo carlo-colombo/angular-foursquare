@@ -1,0 +1,78 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">angular-foursquare test api</a>
+    <ul class="nav">
+      <li ng-hide="access_token">
+        <a class="login-button" href="https://it.foursquare.com/oauth2/authenticate?redirect_uri={{redirect_uri}}&response_type=token&client_id={{client_id}}">
+            <img src="https://playfoursquare.s3.amazonaws.com/press/logo/connect-blue.png">
+        </a>
+      </li>
+    </ul>
+    <ul class="nav pull-right">
+      <li ng-show="access_token">
+        <p class="navbar-text">
+          access_token = <code>{{access_token}}</code>
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span4">
+    <table class="table">
+      <tr>
+        <td><code>Users#get</code></td>
+        <td><input ng-model="userId" placeholder="userId" /></td>
+        <td><a class="btn" ng-click="getUser(userId)">run</a></td>
+      </tr>
+      <tr>
+        <td><code>Users#lists</code></td>
+        <td>{{userId}}</td>
+        <td><a class="btn" ng-click="getUserLists(userId)">run</a></td>
+      </tr>
+      <tr>
+        <td><code>Venues#search</code></td>
+        <td><input type="text" ng-model="ll" placeholder="lat,long"></td>
+        <td><a href="" class="btn" ng-click="searchVenues(ll)">run</a></td>
+      </tr>
+      <tr>
+        <td><code>Venues#get</code></td>
+        <td><input type="text" ng-model="venueId" placeholder="venueId"></td>
+        <td><a href="" class="btn" ng-click="getVenue(venueId)">run</a></td>
+      </tr>
+      <tr ng-init="broadcast='private'">
+        <td><code>Checkins#add</code></td>
+        <td>
+          <input type="text" ng-model="venueId"   placeholder="venueId">
+          <input type="text" ng-model="broadcast" placeholder="broadcast">
+        </td>
+        <td><a href="" class="btn" ng-click="addCheckin(venueId,broadcast)">run</a></td>
+      </tr>
+      <tr>
+        <td><code>Checkins#get</code></td>
+        <td><input type="text" ng-model="checkinId" placeholder="checkinId"></td>
+        <td><a href="" class="btn" ng-click="getCheckin(checkinId)">run</a></td>
+      </tr>
+      <tr>
+        <td><code>#search</code></td>
+        <td>
+          <em>navigator.geolocation.getCurrentPosition</em>
+          <pre>{{pos|json}}</pre>
+        </td>
+        <td><a href="" class="btn" ng-click="search()">run</a></td>
+      </tr>
+      <tr>
+        <td ></td>
+        <td >
+          <a class="btn btn-danger" ng-click="clear()">Clear</a>
+        </td>
+        <td ></td>
+      </tr>
+    </table>
+  </div>
+  <div class="span8">
+    <pre>
+{{data | json:'  '}}
+    </pre>
+  </div>
+</div>

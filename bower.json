@@ -5,10 +5,10 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
+    "components",
+    "test-app"
   ],
   "dependencies": {
-    "angular": "~1.x",
-    "angular-geolocation":"*"
+    "angular": "~1.x"
   }
 }
