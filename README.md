@@ -15,7 +15,7 @@ $scope.user = Foursquare.Users.get({
     userId: 'self' 
 })
 ```
-an helper method is exposed to search venues using a `Geoposition` object as argument (accept a promise of a `Geoposition` too)
+an helper method is exposed to search venues using a `Geoposition` object as argument (accepting a promise of a `Geoposition` too)
 ```javascript
 navigator.geolocation.getCurrentPosition(function (pos) {
     $scope.$apply(function () {
@@ -32,6 +32,7 @@ navigator.geolocation.getCurrentPosition(function (pos) {
 - Checkins#add
 - Checkins#get
 - search
+
 Test application
 ================
 http://carlo-colombo.github.io/angular-foursquare/test-app/index.html
