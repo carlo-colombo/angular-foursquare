@@ -6,32 +6,43 @@ angular.module('ngFoursquare',["ngResource"])
     .constant('encodeParam',function (data) {
         return data && Object.keys(data).map(function (k) {
             return encodeURI(k)+'='+encodeURI(data[k])
-        }).join('&')
+        }).join('&')  
     })
     .provider('Foursquare',function (encodeParam) {
       var FoursquareProvider = {
         '$get': function ($resource,$q,BASE_API_URL) {
             var params = {
-                    oauth_token: FoursquareProvider.token
+                    oauth_token: FoursquareProvider.token || ''
                     ,v: '20130425'
                 }
                 ,Foursquare = {
                 token: function (token) {
                   FoursquareProvider.token = token
                 }
-                ,Venues  : $resource(BASE_API_URL+'/venues/:VENUE_ID/:action',
-                    {VENUE_ID:'@venueId'},{
+                ,Users: $resource(BASE_API_URL+'/users/:userId/:action',
+                    {},{
+                    lists:{
+                        method:'GET',
+                        params: angular.extend({action:'lists'},params)
+                    },
+                    get:{
+                        method:'GET',
+                        params: params
+                    }
+                })
+                ,Venues  : $resource(BASE_API_URL+'/venues/:venueId/:action',
+                    {},{
                     search: {
                         method: 'GET'
-                        ,params: angular.extend({ action:'search'},params)
+                        ,params: angular.extend({action:'search'},params)
                     },
                     get: {
                         method: 'GET',
                         params: params
                     }
                 })
-                ,Checkins: $resource(BASE_API_URL+'/checkins/:CHECKIN_ID/:action',
-                    {CHECKIN_ID:'@checkinId'},{
+                ,Checkins: $resource(BASE_API_URL+'/checkins/:checkinId/:action',
+                    {},{
                     add: {
                         method: 'POST',
                         params: angular.extend({action:'add'},params),
