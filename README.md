@@ -3,9 +3,11 @@ angular-foursquare
 foursquare module for angular
 ###How to use
 set FoursquareProvider token with the oauth token from Foursquare 
+    ```
     myapp.config(function(FoursquareProvider){
-      FoursquareProvider.token = foursquare_oauth_token
+        FoursquareProvider.token = foursquare_oauth_token
     })
+    ```
 
 
 
