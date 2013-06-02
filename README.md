@@ -1,14 +1,28 @@
 angular-foursquare
 ==================
 foursquare module for angular
-###How to use
+###Configure
 Initialize FoursquareProvider token with the oauth token from Foursquare 
 ```javascript
     myapp.config(function(FoursquareProvider){
         FoursquareProvider.token = foursquare_oauth_token
     })
 ```
-Foursquare instance has property `Users`, `Checkins` and `Venues` and `search` method
+###Use
+angular-foursquare expose a Foursquare instance with rest resource (ngResource) `Users`, `Checkins` and `Venues`
+```javascript
+$scope.user = Foursquare.Users.get({
+    userId: 'self' 
+})
+```
+an helper method is exposed to search venues using a `Geoposition` object as argument (accept a promise of a `Geoposition` too)
+```javascript
+navigator.geolocation.getCurrentPosition(function (pos) {
+    $scope.$apply(function () {
+        $scope.venues = Foursquare.search(pos) 
+  })
+})
+```
 
 ###Available methods
 - Users#get
@@ -18,5 +32,6 @@ Foursquare instance has property `Users`, `Checkins` and `Venues` and `search` m
 - Checkins#add
 - Checkins#get
 - search
-
-test api at http://carlo-colombo.github.io/angular-foursquare/test-app/index.html
+Test application
+================
+http://carlo-colombo.github.io/angular-foursquare/test-app/index.html
