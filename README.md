@@ -1,7 +1,7 @@
 angular-foursquare
 ==================
 foursquare module for angular
-###Configure
+###Configuration
 Load `ngFoursquare` module in your app
 
 Initialize `FoursquareProvider` token with the oauth token from [Foursquare](https://developer.foursquare.com/overview/auth.html)
