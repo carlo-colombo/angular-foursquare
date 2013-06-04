@@ -1,17 +1,36 @@
 angular.module('ngFoursquare',["ngResource"])
     .constant('BASE_API_URL','https://api.foursquare.com/v2')
-    .config(['$httpProvider', function($httpProvider) {
-        delete $httpProvider.defaults.headers.common["X-Requested-With"]
-    }])
     .constant('encodeParam',function (data) {
         return data && Object.keys(data).map(function (k) {
             return encodeURI(k)+'='+encodeURI(data[k])
         }).join('&')  
     })
+    .config(function ($provide,$resourceProvider,$httpProvider) {
+        var $hp = angular.copy($httpProvider)
+            ,$rp = angular.copy($resourceProvider)
+            i = 0
+
+        $provide.decorator('$cacheFactory',function ($delegate) {
+            return function (cacheId,options) {
+                if(cacheId=='$http'){
+                    cacheId+=''+i++
+                }
+                $delegate(cacheId,options)
+            }
+        })
+        
+        delete $hp.defaults.headers.common["X-Requested-With"]
+        $hp.defaults.sticazzi=true
+
+        $provide.provider('$customHttp',$hp)
+        $rp.$get[0]="$customHttp"
+        $provide.provider('$customResource',$rp)
+    })
     .provider('Foursquare',function (encodeParam) {
       var FoursquareProvider = {
-        '$get': function ($resource,$q,BASE_API_URL) {
-            var params = {
+        '$get': function ($customResource,$q,BASE_API_URL) {
+            var $resource=$customResource
+                ,params = {
                     oauth_token: FoursquareProvider.token || ''
                     ,v: '20130425'
                 }
@@ -76,3 +95,4 @@ angular.module('ngFoursquare',["ngResource"])
       }
       return FoursquareProvider
     })
+
