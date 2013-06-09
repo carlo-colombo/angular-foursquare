@@ -75,6 +75,21 @@ angular.module('ngFoursquare',["ngResource"])
             params: params
           }
         })
+        ,Lists: $resource(BASE_API_URL+'/lists/:listId/:aspect/:action',
+          {},{
+          get: {
+            method:'GET',
+            params: params
+          },
+          add: {
+            method: 'POST',
+            params: angular.extend({action:'add'}, params),
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            transformRequest: encodeParam
+          }
+        })
         ,search:function (position) {
           return $q.when(position).then(function (pos) {
               var c = pos.coords,
