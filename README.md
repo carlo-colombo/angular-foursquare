@@ -33,6 +33,8 @@ navigator.geolocation.getCurrentPosition(function (pos) {
 - Venues#get
 - Checkins#add
 - Checkins#get
+- Lists#add
+- Lists#get
 - search
 
 Test application
