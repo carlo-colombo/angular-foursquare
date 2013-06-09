@@ -71,4 +71,15 @@ app.controller('ctrl', function($scope,Foursquare, $log, CLIENT_ID, $location) {
       })
     })
   }
+
+  $scope.getList = function (listId) {
+    $scope.data = Foursquare.Lists.get({
+      listId:listId
+    })
+  }
+  $scope.addList = function (name) {
+    $scope.data = Foursquare.Lists.add({
+      name:name
+    })
+  }
 });
