@@ -1,8 +1,10 @@
 angular-foursquare
 ==================
 foursquare module for angular
-###Configure
-Initialize FoursquareProvider token with the oauth token from Foursquare 
+###Configuration
+Load `ngFoursquare` module in your app
+
+Initialize `FoursquareProvider` token with the oauth token from [Foursquare](https://developer.foursquare.com/overview/auth.html)
 ```javascript
     myapp.config(function(FoursquareProvider){
         FoursquareProvider.token = foursquare_oauth_token
@@ -15,7 +17,7 @@ $scope.user = Foursquare.Users.get({
     userId: 'self' 
 })
 ```
-an helper method is exposed to search venues using a `Geoposition` object as argument (accepting a promise of a `Geoposition` too)
+an helper method is exposed to search venues using a `Geoposition` object as argument (accepting also a promise of a `Geoposition`)
 ```javascript
 navigator.geolocation.getCurrentPosition(function (pos) {
     $scope.$apply(function () {
