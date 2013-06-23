@@ -20,8 +20,6 @@ angular.module('ngFoursquare',["ngResource"])
     })
     
     delete $hp.defaults.headers.common["X-Requested-With"]
-    $hp.defaults.sticazzi=true
-
     $provide.provider('$customHttp',$hp)
     $rp.$get[0]="$customHttp"
     $provide.provider('$customResource',$rp)
